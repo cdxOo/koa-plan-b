@@ -1,0 +1,16 @@
+[
+    {
+        "graph": "foo-plan",
+        "nodes": [
+            [ "$start", "is true?" ],
+            {
+                "condition": "is true?",
+                "connect": [
+                    [ true, "do foo stuff" ],
+                    [ false, "$end"]
+                ]
+            },
+            [ "do foo stuff", "$end"]
+        ]
+    }
+]
