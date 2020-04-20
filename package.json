@@ -23,5 +23,9 @@
   },
   "dependencies": {
     "@cdxoo/plan-b": "^0.1.1-alpha"
+  },
+  "directories": {
+      "lib": "src",
+      "example": "examples"
   }
 }
