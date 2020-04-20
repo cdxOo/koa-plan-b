@@ -11,8 +11,8 @@ module.exports = ({
         var runner = (
             PlanB()
             .plans(...plans)
-            .onCondition(onCondition)
-            .onAction(onAction)
+            .onCondition(async (node) => onCondition(context, node))
+            .onAction(async (node) => onAction(context, node))
         );
 
         if (sync) {

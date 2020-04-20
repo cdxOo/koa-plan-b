@@ -40,11 +40,11 @@ describe('koa-plan-b', () => {
                     ]
                 },
             ],
-            onCondition: async (node) => {
+            onCondition: async (context, node) => {
                 executed.push(node.key);
                 return true;
             },
-            onAction: async (node) => {
+            onAction: async (context, node) => {
                 executed.push(node.key);
             },
         });
