@@ -5,27 +5,37 @@ module.exports = ({
     plans,
     onAction,
     onCondition,
-    sync
-}) => (selected) => (
-    async (context, next) => {
-        var runner = (
-            PlanB()
-            .plans(...plans)
-            .onCondition(async (node) => onCondition(context, node))
-            .onAction(async (node) => onAction(context, node))
-        );
+}) => {
+    var runner = (
+        PlanB()
+        .async(true)
+        .plans(...plans)
+    );
 
-        if (sync) {
-            runner.execute(selected) ;
-        }
-        else {
+    // FIXME: do we want onCreate
+    // to be able to check if all
+    // conditions/actions are set
+    // for example when someone
+    // uses a registry like in
+    // my example
+    // FIXME: should we incorporate
+    // the registry here ?
+
+    raturn (selected) => (
+        async (context, next) => {
             await (
                 runner
-                .async(true)
+                .onCondition(async (node) => (
+                    onCondition(context, node)
+                ))
+                .onAction(async (node) => (
+                    onAction(context, node)
+                ))
                 .execute(selected)
             );
-        }
         
-        await next();
-    }
-)
+            await next();
+        }
+    );
+
+}
